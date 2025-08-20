@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitalis - Clínica de Estética Avançada</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(156,39,176,0.8) 0%, rgba(233,30,99,0.8) 100%);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .floating-button {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Animação para os cards de serviço */
+        .more-services-container {
+            transition: max-height 0.7s ease-in-out, opacity 0.5s ease;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        .more-services-container.visible {
+            max-height: 2000px; /* Um valor alto o suficiente para caber todos os cards */
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="fixed w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-spa text-pink-500 text-3xl mr-2"></i>
+                <span class="text-2xl font-bold text-gray-800">Vitalis</span>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-700 hover:text-pink-500 font-medium">Início</a>
+                <a href="#services" class="text-gray-700 hover:text-pink-500 font-medium">Serviços</a>
+                <a href="#about" class="text-gray-700 hover:text-pink-500 font-medium">Sobre</a>
+                <a href="#testimonials" class="text-gray-700 hover:text-pink-500 font-medium">Depoimentos</a>
+                <a href="#contact" class="text-gray-700 hover:text-pink-500 font-medium">Contato</a>
+            </nav>
+            
+            <button class="md:hidden text-gray-700" id="mobile-menu-button">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+            
+            <div class="hidden md:block">
+                <a href="#contact" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full font-medium hover:opacity-90 transition">Agendar Consulta</a>
+            </div>
+        </div>
+        
+        <div class="md:hidden hidden bg-white w-full py-4 px-4 shadow-lg" id="mobile-menu">
+            <div class="flex flex-col space-y-4">
+                <a href="#home" class="text-gray-700 hover:text-pink-500 font-medium">Início</a>
+                <a href="#services" class="text-gray-700 hover:text-pink-500 font-medium">Serviços</a>
+                <a href="#about" class="text-gray-700 hover:text-pink-500 font-medium">Sobre</a>
+                <a href="#testimonials" class="text-gray-700 hover:text-pink-500 font-medium">Depoimentos</a>
+                <a href="#contact" class="text-gray-700 hover:text-pink-500 font-medium">Contato</a>
+                <a href="#contact" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full font-medium text-center hover:opacity-90 transition">Agendar Consulta</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24 hero-gradient text-white">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Sua beleza em primeiro lugar</h1>
+                <p class="text-lg md:text-xl mb-8 opacity-90">Na Vitalis, combinamos tecnologia avançada com tratamentos personalizados para realçar sua beleza natural.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#contact" class="bg-white text-pink-600 px-8 py-3 rounded-full font-bold text-center hover:bg-gray-100 transition">Agendar Consulta</a>
+                    <a href="#services" class="border-2 border-white px-8 py-3 rounded-full font-bold text-center hover:bg-white hover:bg-opacity-10 transition">Nossos Serviços</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="https://img.freepik.com/fotos-premium/uma-sala-com-uma-pintura-de-uma-mulher-na-parede_1261236-11654.jpg" alt="Tratamento estético" class="rounded-xl shadow-2xl w-full max-w-md floating-button">
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white py-12 shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="p-4">
+                    <div class="text-4xl md:text-5xl font-bold text-pink-500 mb-2">5K+</div>
+                    <div class="text-gray-600">Clientes Satisfeitos</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl md:text-5xl font-bold text-purple-500 mb-2">15+</div>
+                    <div class="text-gray-600">Anos de Experiência</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl md:text-5xl font-bold text-pink-500 mb-2">30+</div>
+                    <div class="text-gray-600">Tratamentos</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl md:text-5xl font-bold text-purple-500 mb-2">98%</div>
+                    <div class="text-gray-600">Taxa de Satisfação</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Nossos Serviços</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">Oferecemos os mais avançados tratamentos estéticos com tecnologia de ponta e profissionais altamente qualificados.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden service-card transition duration-300">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://plus.unsplash.com/premium_photo-1661769358914-1d33c22bd7ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Botox" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-pink-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-syringe text-pink-500 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Botox e Preenchimentos</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Tratamentos minimamente invasivos para suavizar rugas e linhas de expressão, restaurando volume facial.</p>
+                        <a href="#contact" class="text-pink-500 font-medium hover:text-pink-600 flex items-center">
+                            Saiba mais <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md overflow-hidden service-card transition duration-300">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1700760933941-3a06a28fbf47?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dHJhdGFtZW50byUyMGElMjBsYXNlcnxlbnwwfHwwfHx8Mg%3D%3D" alt="Laser" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-purple-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-burn text-purple-500 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Tratamentos a Laser</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Tecnologia laser para remoção de manchas, tatuagens, pelos e rejuvenescimento da pele.</p>
+                        <a href="#contact" class="text-purple-500 font-medium hover:text-purple-600 flex items-center">
+                            Saiba mais <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md overflow-hidden service-card transition duration-300">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Corporal" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-pink-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-spa text-pink-500 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Harmonização Corporal</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Procedimentos para modelagem corporal, redução de gordura localizada e celulite.</p>
+                        <a href="#contact" class="text-pink-500 font-medium hover:text-pink-600 flex items-center">
+                            Saiba mais <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="more-services-container" class="more-services-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden service-card transition duration-300">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1737215398544-94db22a53a01?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cm9zdG8lMjBkZXNjYXNjYWRvfGVufDB8fDB8fHwy" alt="Peeling" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-purple-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-mask text-purple-500 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Peeling Químico</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Renovação da pele para tratar manchas, cicatrizes de acne e linhas finas.</p>
+                        <a href="#contact" class="text-purple-500 font-medium hover:text-purple-600 flex items-center">
+                            Saiba mais <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md overflow-hidden service-card transition duration-300">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://plus.unsplash.com/premium_photo-1677181731363-d9338f1805c8?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGVzdCVDMyVBOXRpY2F8ZW58MHx8MHx8fDA%3D" alt="Microagulhamento" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-pink-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-microscope text-pink-500 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Microagulhamento</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Estimula a produção de colágeno para melhorar a textura e firmeza da pele.</p>
+                        <a href="#contact" class="text-pink-500 font-medium hover:text-pink-600 flex items-center">
+                            Saiba mais <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md overflow-hidden service-card transition duration-300">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1728949202477-bad2935775cb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Limpeza de Pele" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-purple-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-hands-wash text-purple-500 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Limpeza de Pele Profunda</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Remoção de impurezas para uma pele mais saudável, luminosa e macia.</p>
+                        <a href="#contact" class="text-purple-500 font-medium hover:text-purple-600 flex items-center">
+                            Saiba mais <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md overflow-hidden service-card transition duration-300">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1570174006382-148305ce4972?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fG1hc3NhZ2VtfGVufDB8fDB8fHww" alt="Massagem" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-pink-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-hand-holding-heart text-pink-500 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Massagens Estéticas</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Massagens relaxantes e modeladoras para bem-estar e redução de medidas.</p>
+                        <a href="#contact" class="text-pink-500 font-medium hover:text-pink-600 flex items-center">
+                            Saiba mais <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md overflow-hidden service-card transition duration-300">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://revitare.com.br/wp-content/uploads/2017/07/Drenagem-Linf%C3%A1tica-Manual-Est%C3%A9tica-Corporal-S%C3%A3o-Jos%C3%A9-dos-Campos-Revitare-2.jpg" alt="Drenagem" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-purple-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-water text-purple-500 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Drenagem Linfática</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Ajuda a eliminar o inchaço, toxinas e melhora a circulação do corpo.</p>
+                        <a href="#contact" class="text-purple-500 font-medium hover:text-purple-600 flex items-center">
+                            Saiba mais <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md overflow-hidden service-card transition duration-300">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://plus.unsplash.com/premium_photo-1661407348712-d34a4b92e647?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fG1hc3NhZ2VtJTIwZmFjaWFsfGVufDB8fDB8fHww" alt="Facial" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-pink-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-face-flushed text-pink-500 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Tratamentos Faciais</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Diversos tratamentos para revitalização, hidratação e combate ao envelhecimento da pele do rosto.</p>
+                        <a href="#contact" class="text-pink-500 font-medium hover:text-pink-600 flex items-center">
+                            Saiba mais <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button id="show-more-button" class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-full font-bold hover:opacity-90 transition">Ver todos os serviços</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <img src="https://images.unsplash.com/photo-1551601651-bc60f254d532?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Clínica Vitalis" class="rounded-xl shadow-lg w-full">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Sobre a Vitalis</h2>
+                    <div class="w-20 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mb-6"></div>
+                    <p class="text-gray-600 mb-6">Fundada em 2008, a Vitalis se tornou referência em tratamentos estéticos avançados, combinando tecnologia de ponta com atendimento personalizado.</p>
+                    <p class="text-gray-600 mb-6">Nossa equipe é composta por médicos especialistas e profissionais altamente qualificados, comprometidos com resultados naturais e satisfação dos pacientes.</p>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start">
+                            <div class="bg-pink-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-check text-pink-500"></i>
+                            </div>
+                            <p class="text-gray-700 font-medium">Equipe médica especializada</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-check text-purple-500"></i>
+                            </div>
+                            <p class="text-gray-700 font-medium">Tecnologia de última geração</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-pink-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-check text-pink-500"></i>
+                            </div>
+                            <p class="text-gray-700 font-medium">Ambiente seguro e acolhedor</p>
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-full font-bold hover:opacity-90 transition">Conheça nossa equipe</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Depoimentos</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">Veja o que nossos clientes dizem sobre os tratamentos e atendimento na Vitalis.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-md testimonial-card">
+                    <div class="flex items-center mb-6">
+                        <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Cliente" class="w-16 h-16 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800">Ana Carolina</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"Fiz aplicação de botox na Vitalis e adorei o resultado! A equipe é muito profissional e o ambiente super aconchegante. Recomendo muito!"</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-md testimonial-card">
+                    <div class="flex items-center mb-6">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Cliente" class="w-16 h-16 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800">Juliana Santos</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"O tratamento de harmonização facial mudou minha autoestima. Os resultados foram naturais e exatamente como eu esperava. Super atenciosos!"</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-md testimonial-card">
+                    <div class="flex items-center mb-6">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Cliente" class="w-16 h-16 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800">Ricardo Almeida</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"Fiz remoção de tatuagem a laser e estou impressionado com os resultados. O processo foi menos doloroso do que imaginei e a equipe me deixou muito à vontade."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Pronto para transformar sua aparência?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">Agende uma avaliação gratuita com nossos especialistas e descubra o tratamento ideal para você.</p>
+            <a href="#contact" class="inline-block bg-white text-pink-600 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition">Agendar Consulta</a>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Entre em Contato</h2>
+                    <div class="w-20 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mb-6"></div>
+                    <p class="text-gray-600 mb-8">Estamos à disposição para esclarecer dúvidas e agendar sua consulta. Preencha o formulário ou entre em contato diretamente pelos nossos canais.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-pink-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-map-marker-alt text-pink-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Endereço</h4>
+                                <p class="text-gray-600">Av. Paulista, 1000 - São Paulo/SP</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-phone-alt text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Telefone</h4>
+                                <p class="text-gray-600">(11) 1234-5678</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-pink-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-envelope text-pink-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Email</h4>
+                                <p class="text-gray-600">contato@vitalisestetica.com.br</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-clock text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Horário de Funcionamento</h4>
+                                <p class="text-gray-600">Segunda a Sexta: 8h às 20h<br>Sábado: 9h às 15h</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 flex space-x-4">
+                        <a href="#" class="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="bg-pink-600 text-white p-3 rounded-full hover:bg-pink-700 transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="bg-blue-400 text-white p-3 rounded-full hover:bg-blue-500 transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <form class="bg-gray-50 p-8 rounded-xl shadow-md">
+                        <div class="mb-6">
+                            <label for="name" class="block text-gray-700 font-medium mb-2">Nome Completo</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent" placeholder="Seu nome">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent" placeholder="seu@email.com">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="phone" class="block text-gray-700 font-medium mb-2">Telefone</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent" placeholder="(00) 00000-0000">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="service" class="block text-gray-700 font-medium mb-2">Serviço de Interesse</label>
+                            <select id="service" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent">
+                                <option value="">Selecione um serviço</option>
+                                <option value="botox">Botox e Preenchimentos</option>
+                                <option value="laser">Tratamentos a Laser</option>
+                                <option value="corporal">Harmonização Corporal</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 font-medium mb-2">Mensagem</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent" placeholder="Sua mensagem..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-full font-bold hover:opacity-90 transition">Enviar Mensagem</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-spa text-pink-500 text-3xl mr-2"></i>
+                        <span class="text-2xl font-bold">Vitalis</span>
+                    </div>
+                    <p class="text-gray-400">Clínica de estética avançada, oferecendo os melhores tratamentos com tecnologia de ponta e profissionais qualificados.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Links Rápidos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition">Início</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition">Serviços</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition">Sobre Nós</a></li>
+                        <li><a href="#testimonials" class="text-gray-400 hover:text-white transition">Depoimentos</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Assine nossa newsletter para receber novidades e promoções.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Seu email" class="px-4 py-2 rounded-l-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 w-full">
+                        <button type="submit" class="bg-pink-500 px-4 py-2 rounded-r-lg hover:bg-pink-600 transition">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">Vitalis Clínica de Estética é uma marca fictícia. Não tem afiliação com nenhuma empresa real.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/551112345678" target="_blank" class="fixed bottom-8 right-8 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition z-50">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        
+        // Form submission (example)
+        const contactForm = document.querySelector('form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Obrigado por sua mensagem! Entraremos em contato em breve.');
+                this.reset();
+            });
+        }
+
+        // Show more services functionality with animation
+        const showMoreButton = document.getElementById('show-more-button');
+        const moreServicesContainer = document.getElementById('more-services-container');
+        
+        showMoreButton.addEventListener('click', () => {
+            moreServicesContainer.classList.toggle('visible');
+            if (moreServicesContainer.classList.contains('visible')) {
+                showMoreButton.textContent = 'Ver menos serviços';
+            } else {
+                showMoreButton.textContent = 'Ver todos os serviços';
+            }
+        });
+    </script>
+</body>
+</html>
